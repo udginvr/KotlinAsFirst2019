@@ -49,8 +49,7 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
  * Пример главной функции
  */
 fun main() {
-    val x1x2 = quadraticRootProduct(1.0, 13.0, 42.0)
-    println("Root product: $x1x2")
+    println(thirdDigit(1234))
 }
 
 /**
@@ -70,8 +69,8 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int =
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
-    val vershkis = (3 * sagenes + arshins) * 48 + vershoks
-    val centimeters = vershkis / 4.445
+    val vershkis = (3 * sagenes + arshins) * 16 + vershoks
+    val centimeters = vershkis * 4.445
     return centimeters / 100
 }
 
@@ -97,7 +96,12 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = TODO()
  * Пользователь задает целое число, большее 100 (например, 3801).
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
-fun thirdDigit(number: Int): Int = TODO()
+fun thirdDigit(number: Int): Int {
+    if (number < 100)
+        return 0
+    else
+        return (number / 100) - (10 * (number / 1000))
+}
 
 /**
  * Простая
@@ -115,7 +119,13 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
+fun accountInThreeYears(initial: Int, percent: Int): Double{
+    var yearSum: Double = initial.toDouble()
+    for (i: Int in 1..3){
+        yearSum *= (1 + percent / 100.0)
+    }
+    return yearSum
+}
 
 /**
  * Простая
@@ -123,4 +133,9 @@ fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
  * Пользователь задает целое трехзначное число (например, 478).
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
-fun numberRevert(number: Int): Int = TODO()
+fun numberRevert(number: Int): Int{
+    val first = number / 100
+    val second = (number - 100 * first) / 10
+    val third = (number - 100 * first - 10 * second)
+    return 100 * third + 10 * second + first
+}
