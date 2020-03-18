@@ -3,6 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import java.lang.Integer.min
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -76,7 +77,13 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double {
+    val halfPath: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
+    if (halfPath == 0.0) return 0.0
+    if (t1 * v1 > halfPath) return halfPath / v1
+    if (t2 * v2 > halfPath - t1 * v1) return t1 + (halfPath - t1 * v1) / v2
+    return t1 + t2 + (halfPath - t1 * v1 - t2 * v2) / v3
+}
 
 /**
  * Простая
@@ -91,7 +98,12 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = TODO()
+): Int{
+    if (rookX1 == kingX || rookY1 == kingY){
+        return if (rookX2 == kingX || rookY2 == kingY) 3 else 1
+    }
+    return if (rookX2 == kingX || rookY2 == kingY) 2 else 0
+}
 
 /**
  * Простая
@@ -127,4 +139,9 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    if (b < c || d < a) return -1
+    val left = max(a, c)
+    val right = min(b, d)
+    return right - left
+}
