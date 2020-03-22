@@ -12,7 +12,7 @@ import kotlin.math.sqrt
 fun factorial(n: Int): Double {
     var result = 1.0
     for (i in 1..n) {
-        result = result * i // Please do not fix in master
+        result *= i // Please do not fix in master
     }
     return result
 }
@@ -67,7 +67,15 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var k = 0
+    var n2 = n
+    do {
+        k++
+        n2 /= 10
+    } while (n2 > 0)
+    return k
+}
 
 /**
  * Простая
@@ -185,7 +193,15 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    val k: Int = n % 10
+    var n2: Int = n / 10
+    while (n2 > 0) {
+        if (n2 % 10 != k) return true
+        n2 /= 10
+    }
+    return false
+}
 
 /**
  * Сложная
@@ -196,7 +212,22 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var i = 1
+    var i2 = i * i
+    var n2 = n
+    var res = 0
+    while (n2 > 0) {
+        res = i2 % 10
+        i2 /= 10
+        if (i2 == 0){
+            i++
+            i2 = i * i
+        }
+        n2--
+    }
+    return res
+}
 
 /**
  * Сложная
