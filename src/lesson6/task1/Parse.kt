@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import java.lang.NumberFormatException
+
 /**
  * Пример
  *
@@ -81,7 +83,31 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val months: Map<String, String> = mapOf<String, String>(
+        "01" to "января",
+        "02" to "февраля",
+        "03" to "марта",
+        "04" to "апреля",
+        "05" to "мая",
+        "06" to "июня",
+        "07" to "июля",
+        "08" to "августа",
+        "09" to "сентября",
+        "10" to "октября",
+        "11" to "ноября",
+        "12" to "декабря"
+    )
+    val input: MutableList<String> = digital.split(".").toMutableList()
+    if (input.size < 3) return ""
+    if (input[0].length != 2 || input[1].length != 2 || input[2].length != 4) return ""
+    if (input[0][0] == '0') input[0] = input[0][1].toString()
+    return try {
+        if (months.containsKey(input[1])) "${input[0]} ${months[input[1]]} ${input[2]}" else ""
+    } catch (e: NumberFormatException) {
+        ""
+    }
+}
 
 /**
  * Средняя
@@ -157,7 +183,23 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше либо равны нуля.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    if (description == "") return ""
+    val dirtyData: List<String> = description.split("; ")
+    val cleanData: MutableList<Pair<String, Float>>
+    try {
+        var i = 0
+        var p: Pair<String, Double> = Pair("", 0.0)
+        for (str in dirtyData) {
+            val goodsData: List<String> = str.split(" ")
+            if (goodsData.size != 2) return ""
+            if (goodsData[1].toDouble() > p.second) p = Pair(goodsData[0], goodsData[1].toDouble())
+        }
+        return p.first
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+}
 
 /**
  * Сложная
